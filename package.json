@@ -1,0 +1,14 @@
+{
+  "name": "tcp-connection-test",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "net": "^1.0.2",
+    "ws": "^7.4.4"
+  },
+  "scripts": {
+    "start-client": "node client.js",
+    "start-server": "node server.js"
+  },
+  "devDependencies": {}
+}
