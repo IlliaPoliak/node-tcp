@@ -12,7 +12,7 @@ const server = net.createServer(function(socket) {
 	});
 });
 
-server.listen(PORT, function () {
+server.listen(PORT, IP, function () {
 	console.log("waiting for a connection");
 });
 

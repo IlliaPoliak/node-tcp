@@ -3,20 +3,20 @@ const sendButton = document.getElementById('send');
 
 ws = new WebSocket(`ws:127.0.0.1:8091`)
 
+let startTime;
+let endTime;
+
 sendButton.addEventListener('click', e => {
     const message = messageInput.value.trim();
 
     if (message) {
         console.log('ws send message: ', message);
         
+        startTime = new Date();
         ws.send(message);
         messageInput.value = '';
     }
 })
-
-ws.onmessage = (event) => {
-    console.log("ws recieved message: ", event.data)
-}
 
 ws.onopen = () => {
     console.log("ws open")
@@ -26,11 +26,8 @@ ws.onclose = () => {
     console.log("ws close")
 }
 
-
-
-
-
-// ???
-// const sender = new RTCRtpSender().rtcpTransport
-// const receiver = new RTCRtpReceiver().transport
-// const connection = new RTCPeerConnection().sctp.transport
+ws.onmessage = (event) => {
+    endTime = new Date();
+    console.log("ws recieved message: ", event.data)
+    console.log('time: ', endTime - startTime, ' ms')
+}

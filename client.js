@@ -18,45 +18,29 @@ wss.on('connection', function connection(ws, req) {
   });
 
   client.on('data', function(data) {
-    console.log('TCP:: received message: ' + data);
-
+    console.log('TCP:: received message: ' + data.toString());
     ws.send(data.toString());
   });
 
-  client.on('close', function() {
+  client.on('close', function () {
     console.log('TCP-connection closed');
   });
 
-  client.on('end', function() {
+  client.on('end', function () {
     console.log('connection ended');
   });
-
-
-
+  
   ws.on('message', function incoming(message) {
     console.log('WS:: received message: ', message);
 
-    try {
-      client.write(message);
-
-      console.log(
-        'local', client.localAddress, 
-        'remote', client.remoteAddress, ':', client.remotePort,
-      );
-    } catch (e) {
-      console.log('error to send message');
-    }
+    client.write(message);
   });
 
-  ws.send(`
-    WebSocket response::
-    adress:${req.socket.remoteAddress},
-    port:${req.socket.remotePort}
-  `);
+  ws.send('ws connected');
 });
 
+wss.on('error', function () {
+  console.log('WS ERROR');
+})
+
 console.log('Client server running');
-
-
-
-
